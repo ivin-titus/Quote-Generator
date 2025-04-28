@@ -2,7 +2,7 @@
 
 A simple web application that fetches and displays random quotes using the Quotable API. This project demonstrates basic API fetching using JavaScript's Fetch API and showcases a modern UI with a glassmorphism effect.
 
-![Random Quote Generator Screenshot](/files/demo.png)
+![Random Quote Generator Screenshot](/files/demo.avif)
 
 ## Features
 
