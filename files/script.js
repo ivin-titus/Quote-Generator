@@ -13,7 +13,7 @@ async function getQuote() {
         displayLoadingState(true);
         
         // Fetch data from the API
-        const response = await fetch("https://api.allorigins.win/raw?url=https://api.quotable.io/random");
+        const response = await fetch("https://corsproxy.io/?https://api.quotable.io/random");
         
         // Parse the JSON response
         const data = await response.json();
