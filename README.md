@@ -16,6 +16,8 @@ A simple web application that fetches and displays random quotes using the Quota
 
 [View Demo](https://quote-generator-ivin.vercel.app/)
 
+> **Note:** The live demo may experience CORS errors on some devices. For the best experience, we recommend running the project locally. We welcome contributions to help resolve this issue!
+
 ## Technologies Used
 
 - HTML5
@@ -28,6 +30,8 @@ A simple web application that fetches and displays random quotes using the Quota
 
 ```
 Quote-Generator/
+├── api/
+│   └── corserrorfix.js      # Server middleware to handle CORS errors
 ├── files/
 │   ├── script.js            # JavaScript code: Logic behind page working
 │   └── style.css            # CSS code: Page styles 
@@ -72,6 +76,10 @@ The JavaScript file handles the functionality:
 - `displayLoadingState()`: Updates the UI during loading
 - Event listeners to handle user interactions
 
+### CORS Error Fix (api/corserrorfix.js)
+
+This middleware helps resolve Cross-Origin Resource Sharing (CORS) errors that may occur when fetching quotes from the external API.
+
 ## Learning Points
 
 This project demonstrates several important web development concepts:
@@ -111,6 +119,22 @@ You can customize this project by:
 1. **Changing the background**: Modify the background image URL in the CSS file
 2. **Styling adjustments**: Update colors, fonts, and sizing in the CSS file
 3. **Additional features**: Add quote categories, favorites functionality, or social sharing options
+
+## Contributing
+
+We welcome contributions to this project! Here are some ways you can help:
+
+1. **Fix CORS issues**: Help improve the CORS error handling to make the demo work across all devices
+2. **Add new features**: Implement quote categories, social sharing, or favorites
+3. **Improve accessibility**: Make the application more accessible to all users
+4. **Fix bugs**: Address any issues you find while using the application
+
+To contribute:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 

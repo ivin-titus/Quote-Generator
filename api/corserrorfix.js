@@ -1,3 +1,5 @@
+// tried my best to fix CORS Errors, But failed 🙁
+
 module.exports = async (req, res) => {
     try {
         // Extract the target URL from the query string (after '?')
@@ -25,3 +27,4 @@ module.exports = async (req, res) => {
         res.status(500).json({ error: 'Something went wrong while fetching the data.' });
     }
 };
+
