@@ -14,7 +14,7 @@ A simple web application that fetches and displays random quotes using the Quota
 
 ## Live Demo
 
-[View Demo](https://your-demo-link-here.com)
+[View Demo](https://quote-generator-ivin.vercel.app/)
 
 ## Technologies Used
 
