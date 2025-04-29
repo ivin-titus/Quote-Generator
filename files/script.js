@@ -15,9 +15,19 @@ async function getQuote() {
         // Fetch data from the API through a proxy server to avoid CORS Errors
         const response = await fetch(`/api/corserrorfix?url=https://api.quotable.io/random`);
         
+        // Check if the response is valid (status 200)
+        if (!response.ok) {
+            throw new Error("Failed to fetch quote from server.");
+        }
+
         // Parse the JSON response
         const data = await response.json();
         
+        // Check if the response data is structured correctly
+        if (!data.content || !data.author) {
+            throw new Error("Invalid quote data received.");
+        }
+
         // Update the DOM with the quote content and author
         document.getElementById("quote").innerText = `"${data.content}"`;
         document.getElementById("author").innerText = `- ${data.author}`;

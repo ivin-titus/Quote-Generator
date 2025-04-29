@@ -1,4 +1,3 @@
-// Vercel serverless function to proxy the Quotable API and handle CORS
 const fetch = require("node-fetch");
 
 module.exports = async (req, res) => {
@@ -12,12 +11,19 @@ module.exports = async (req, res) => {
 
         // Fetch data from the target URL
         const response = await fetch(targetUrl);
+
+        // Check if the response is successful (status 200)
+        if (!response.ok) {
+            return res.status(response.status).json({ error: 'Failed to fetch data from target API.' });
+        }
+
+        // Parse the JSON response
         const data = await response.json();
 
         // Send the data back to the client
         res.status(200).json(data);
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error fetching quote:', error);
         res.status(500).json({ error: 'Something went wrong while fetching the data.' });
     }
 };
