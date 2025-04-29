@@ -9,30 +9,36 @@
  */
 async function getQuote() {
     try {
-        // Show loading state
-        displayLoadingState(true);
-        
-        // Fetch data from the API
-        const response = await fetch("https://corsproxy.io/?https://api.quotable.io/random");
-        
-        // Parse the JSON response
+        // Try fetching directly from the Quotable API
+        const response = await fetch("https://api.quotable.io/random");
         const data = await response.json();
-        
+
         // Update the DOM with the quote content and author
         document.getElementById("quote").innerText = `"${data.content}"`;
         document.getElementById("author").innerText = `- ${data.author}`;
-        
-        // Hide loading state
-        displayLoadingState(false);
-    }
-    catch (error) {
-        // Handle any errors that occur during fetch
-        console.error("Error fetching quote:", error);
-        document.getElementById("quote").innerText = "Failed to load quote. Please try again.";
-        document.getElementById("author").innerText = "";
-        displayLoadingState(false);
+    } catch (error) {
+        console.error("Direct fetch failed, using proxy:", error);
+
+        // Fallback to proxy server if direct fetch fails
+        const proxyUrl = `/api/corserrorfix?url=https://api.quotable.io/random`;
+        const proxyResponse = await fetch(proxyUrl);
+        const proxyData = await proxyResponse.json();
+
+        // Update the DOM with the quote content and author from proxy
+        document.getElementById("quote").innerText = `"${proxyData.content}"`;
+        document.getElementById("author").innerText = `- ${proxyData.author}`;
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("generate-btn").addEventListener("click", () => {
+        getQuote();
+    });
+
+    // Fetch an initial quote when the page loads
+    getQuote();
+});
+
 
 /**
  * Displays or hides loading state on the button
