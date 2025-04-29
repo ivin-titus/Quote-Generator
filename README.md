@@ -10,7 +10,7 @@ A simple web application that fetches and displays random quotes using the Quota
 - Sleek UI with glassmorphism effect
 - Responsive design for various screen sizes
 - Loading state handling
-- Error handling for failed API requests
+- Error handling for failed API requests 
 
 ## Live Demo
 
