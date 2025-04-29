@@ -11,36 +11,52 @@ async function getQuote() {
     try {
         // Show loading state
         displayLoadingState(true);
-        
-        // Fetch data from the API through a proxy server to avoid CORS Errors
-        const response = await fetch(`/api/corserrorfix?url=https://api.quotable.io/random`);
-        
+
+        // First try to fetch the quote directly (no proxy)
+        const response = await fetch("https://api.quotable.io/random");
+
         // Check if the response is valid (status 200)
         if (!response.ok) {
-            throw new Error("Failed to fetch quote from server.");
+            throw new Error("Failed to fetch quote from API.");
         }
 
         // Parse the JSON response
         const data = await response.json();
-        
-        // Check if the response data is structured correctly
-        if (!data.content || !data.author) {
-            throw new Error("Invalid quote data received.");
-        }
 
         // Update the DOM with the quote content and author
         document.getElementById("quote").innerText = `"${data.content}"`;
         document.getElementById("author").innerText = `- ${data.author}`;
-        
+
         // Hide loading state
         displayLoadingState(false);
     }
     catch (error) {
-        // Handle any errors that occur during fetch
-        console.error("Error fetching quote:", error);
-        document.getElementById("quote").innerText = "Failed to load quote. Please try again.";
-        document.getElementById("author").innerText = "";
-        displayLoadingState(false);
+        console.error("Error fetching quote directly:", error);
+
+        // If direct fetch fails, use the proxy as a fallback
+        try {
+            const proxyResponse = await fetch(`/api/corserrorfix?url=https://api.quotable.io/random`);
+
+            if (!proxyResponse.ok) {
+                throw new Error("Failed to fetch quote from proxy.");
+            }
+
+            // Parse the JSON response from the proxy
+            const proxyData = await proxyResponse.json();
+
+            // Update the DOM with the quote content and author
+            document.getElementById("quote").innerText = `"${proxyData.content}"`;
+            document.getElementById("author").innerText = `- ${proxyData.author}`;
+
+            // Hide loading state
+            displayLoadingState(false);
+        }
+        catch (proxyError) {
+            console.error("Error fetching quote from proxy:", proxyError);
+            document.getElementById("quote").innerText = "Failed to load quote. Please try again.";
+            document.getElementById("author").innerText = "";
+            displayLoadingState(false);
+        }
     }
 }
 

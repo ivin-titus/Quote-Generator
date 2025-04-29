@@ -1,5 +1,3 @@
-const fetch = require("node-fetch");
-
 module.exports = async (req, res) => {
     try {
         // Extract the target URL from the query string (after '?')
@@ -9,7 +7,7 @@ module.exports = async (req, res) => {
             return res.status(400).json({ error: 'URL parameter is missing.' });
         }
 
-        // Fetch data from the target URL
+        // Fetch data from the target URL using native fetch (no need for node-fetch)
         const response = await fetch(targetUrl);
 
         // Check if the response is successful (status 200)
