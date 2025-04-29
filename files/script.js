@@ -33,7 +33,7 @@ async function getQuote() {
     catch (error) {
         console.error("Error fetching quote directly:", error);
 
-        // If direct fetch fails, use the proxy as a fallback  
+        // If direct fetch fails, use the proxy as a fallback   
         try {
             const proxyResponse = await fetch(`/api/corserrorfix?url=https://api.quotable.io/random`);
 

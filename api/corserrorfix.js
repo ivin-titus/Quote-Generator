@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
 
         // Check if the response is successful (status 200)
         if (!response.ok) {
-            return res.status(response.status).json({ error: 'Failed to fetch data from target API.' });
+            return res.status(response.status).json({ error: 'Failed to fetch data from target API.' }); 
         }
 
         // Parse the JSON response
